@@ -2,33 +2,22 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Track } from './track.interface';
 import { Howl } from 'howler';
 import { IonRange } from '@ionic/angular';
+import { TrackService } from './track.service';
 @Component({
   selector: 'app-track',
   templateUrl: './track.page.html',
   styleUrls: ['./track.page.scss']
 })
 export class TrackPage implements OnInit {
-  playlist: Track[] = [
-    {
-      name: 'new Beg',
-      path: './assets/mp3/bensound-anewbeginning.mp3'
-    },
-    {
-      name: 'Create Mind',
-      path: './assets/mp3/bensound-creativeminds.mp3'
-    },
-    {
-      name: 'Summer',
-      path: './assets/mp3/bensound-summer.mp3'
-    }
-  ];
-
+  playlist: Track[] = [];
   activeTrack: Track = null;
   player: Howl = null;
   isPlaying = false;
   progress = 0;
+
   @ViewChild('range', { static: false }) range: IonRange;
-  constructor() {}
+
+  constructor(private trackService: TrackService) {}
 
   start(track: Track) {
     if (this.player) {
@@ -88,5 +77,7 @@ export class TrackPage implements OnInit {
     }, 1000);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.playlist = this.trackService.getAllPlaylist();
+  }
 }
