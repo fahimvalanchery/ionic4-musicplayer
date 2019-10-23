@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Track</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item button *ngFor="let track of playlist" (click)="start(track)">
+      <ion-label [color]="track == activeTrack ? 'success' : 'light'">
+        {{ track.name }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
